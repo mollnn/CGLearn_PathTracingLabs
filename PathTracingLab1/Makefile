@@ -1,6 +1,12 @@
 bin/PathTracingLab1.exe: 		lib/Main.o lib/json/cJSON.o lib/json/CJsonObject.o
 	g++ -o bin/PathTracingLab1.exe lib/Main.o lib/json/cJSON.o lib/json/CJsonObject.o
 
+bin/moduleTest.exe:				lib/moduleTest.o lib/json/cJSON.o lib/json/CJsonObject.o
+	g++ -o moduleTest.exe lib/moduleTest.o lib/json/cJSON.o lib/json/CJsonObject.o
+
+lib/moduleTest.o:				src/moduleTest.cpp
+	g++ -o lib/moduleTest.o src/moduleTest.cpp
+
 lib/Main.o:						src/Main.cpp
 	g++ -o lib/Main.o -c src/Main.cpp
 

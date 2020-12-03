@@ -148,28 +148,71 @@ struct Vector3D
         return {-opd.x, -opd.y, -opd.z};
     }
 
-    jsonobj::CJsonObject ToJsonObject()
+    cjsonobj::CJsonObject ToJsonObject()
     {
-        jsonobj::CJsonObject jsonobj;
-        jsonobj.Add("x",this->x);
-        jsonobj.Add("y",this->y);
-        jsonobj.Add("z",this->z);
+        cjsonobj::CJsonObject jsonobj;
+        jsonobj.Add("x", this->x);
+        jsonobj.Add("y", this->y);
+        jsonobj.Add("z", this->z);
         return jsonobj;
     }
 
-    friend jsonobj::CJsonObject ToJsonObject(const Vector3D &opd)
+    friend cjsonobj::CJsonObject ToJsonObject(const Vector3D &opd)
     {
-        jsonobj::CJsonObject jsonobj;
-        jsonobj.Add("x",opd.x);
-        jsonobj.Add("y",opd.y);
-        jsonobj.Add("z",opd.z);
+        cjsonobj::CJsonObject jsonobj;
+        jsonobj.Add("x", opd.x);
+        jsonobj.Add("y", opd.y);
+        jsonobj.Add("z", opd.z);
         return jsonobj;
+    }
+
+    void FromJsonObject(const cjsonobj::CJsonObject &jsonobj)
+    {
+        jsonobj.Get("x", x);
+        jsonobj.Get("y", y);
+        jsonobj.Get("z", z);
     }
 
     void FromJsonObject(const std::string &str)
     {
-        jsonobj::CJsonObject jsonobj;
+        cjsonobj::CJsonObject jsonobj;
         jsonobj.Parse(str);
+        jsonobj.Get("x", x);
+        jsonobj.Get("y", y);
+        jsonobj.Get("z", z);
+    }
+
+    friend cjsonobj::CJsonObject ToJsonObject(Vector3D &opd, const std::string &str)
+    {
+        cjsonobj::CJsonObject jsonobj;
+        jsonobj.Parse(str);
+        jsonobj.Get("x", opd.x);
+        jsonobj.Get("y", opd.y);
+        jsonobj.Get("z", opd.z);
+    }
+
+    
+    friend cjsonobj::CJsonObject ToJsonObject(const std::string &str, Vector3D &opd)
+    {
+        cjsonobj::CJsonObject jsonobj(str);
+        jsonobj.Get("x", opd.x);
+        jsonobj.Get("y", opd.y);
+        jsonobj.Get("z", opd.z);
+    }
+
+    friend std::istream& operator >> (std::istream& lhs, Vector3D &rhs)
+    {
+        std::string jsonstr;
+        lhs>>jsonstr;
+        rhs.FromJsonObject(jsonstr);
+        return lhs;
+    }
+
+    friend std::ostream& operator << (std::ostream& lhs, Vector3D rhs)
+    {
+        std::string jsonstr=rhs.ToJsonObject().ToString();
+        lhs<<jsonstr;
+        return lhs;
     }
 };
 

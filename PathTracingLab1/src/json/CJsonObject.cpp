@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Project:  jsonobj
+ * Project:  cjsonobj
  * @file     CJsonObject.cpp
  * @brief 
  * @author   bwarliao
@@ -14,7 +14,7 @@
 #define snprintf _snprintf_s
 #endif
 
-namespace jsonobj
+namespace cjsonobj
 {
 
 CJsonObject::CJsonObject()

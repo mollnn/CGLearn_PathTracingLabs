@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 
-namespace jsonobj
+namespace cjsonobj
 {
 
 class CJsonObject
