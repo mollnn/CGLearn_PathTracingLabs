@@ -87,7 +87,7 @@ struct Vector3D
 
     Vector3D Directmult(const Vector3D &rhs)
     {
-        Vector3D res;
+        Vector3D res = *this;
         res.x *= rhs.x;
         res.y *= rhs.y;
         res.z *= rhs.z;
@@ -189,6 +189,7 @@ struct Vector3D
         jsonobj.Get("x", opd.x);
         jsonobj.Get("y", opd.y);
         jsonobj.Get("z", opd.z);
+        return jsonobj;
     }
 
     
@@ -198,6 +199,7 @@ struct Vector3D
         jsonobj.Get("x", opd.x);
         jsonobj.Get("y", opd.y);
         jsonobj.Get("z", opd.z);
+        return jsonobj;
     }
 
     friend std::istream& operator >> (std::istream& lhs, Vector3D &rhs)
