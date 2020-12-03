@@ -1,11 +1,11 @@
-PathTracingLab1: 		Main.o
-	g++ -o PathTracingLab1.exe Main.o
+bin\PathTracingLab1.exe: 		lib\Main.o
+	g++ -o bin\PathTracingLab1.exe lib\Main.o
 
-Main.o:					Main.cpp
-	g++ -c Main.cpp
+lib\Main.o:						src\Main.cpp
+	g++ -o lib\Main.o -c src\Main.cpp
 
 clean:
-	rm PathTracingLab1.exe Main.o
+	rm bin\PathTracingLab1.exe lib\Main.o
 
 run:
-	PathTracingLab1.exe
+	bin\PathTracingLab1.exe
