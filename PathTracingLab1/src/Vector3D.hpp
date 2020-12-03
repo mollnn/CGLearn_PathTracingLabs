@@ -2,7 +2,7 @@
 #define _VECTOR3D_HPP_
 
 #include <bits/stdc++.h>
-#include "json\CJsonObject.hpp"
+#include "json/CJsonObject.hpp"
 
 struct Vector3D
 {
@@ -170,10 +170,6 @@ struct Vector3D
     {
         jsonobj::CJsonObject jsonobj;
         jsonobj.Parse(str);
-        std::string str_x=jsonobj["x"];
-        std::string str_y=jsonobj["y"];
-        std::string str_z=jsonobj["z"];
-        
     }
 };
 
