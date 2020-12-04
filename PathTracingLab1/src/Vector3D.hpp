@@ -173,13 +173,13 @@ struct Vector3D
         jsonobj.Get("z", z);
     }
 
-    void FromJsonObject(const std::string &str)
+    friend Vector3D Vector3DFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
     {
-        cjsonobj::CJsonObject jsonobj;
-        jsonobj.Parse(str);
-        jsonobj.Get("x", x);
-        jsonobj.Get("y", y);
-        jsonobj.Get("z", z);
+        Vector3D ans;
+        jsonobj.Get("x", ans.x);
+        jsonobj.Get("y", ans.y);
+        jsonobj.Get("z", ans.z);
+        return ans;
     }
 
     friend cjsonobj::CJsonObject ToJsonObject(Vector3D &opd, const std::string &str)
@@ -192,7 +192,6 @@ struct Vector3D
         return jsonobj;
     }
 
-    
     friend cjsonobj::CJsonObject ToJsonObject(const std::string &str, Vector3D &opd)
     {
         cjsonobj::CJsonObject jsonobj(str);
@@ -202,18 +201,18 @@ struct Vector3D
         return jsonobj;
     }
 
-    friend std::istream& operator >> (std::istream& lhs, Vector3D &rhs)
+    friend std::istream &operator>>(std::istream &lhs, Vector3D &rhs)
     {
         std::string jsonstr;
-        lhs>>jsonstr;
+        lhs >> jsonstr;
         rhs.FromJsonObject(jsonstr);
         return lhs;
     }
 
-    friend std::ostream& operator << (std::ostream& lhs, Vector3D rhs)
+    friend std::ostream &operator<<(std::ostream &lhs, Vector3D rhs)
     {
-        std::string jsonstr=rhs.ToJsonObject().ToString();
-        lhs<<jsonstr;
+        std::string jsonstr = rhs.ToJsonObject().ToString();
+        lhs << jsonstr;
         return lhs;
     }
 };
