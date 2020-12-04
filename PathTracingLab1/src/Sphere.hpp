@@ -13,6 +13,22 @@ struct Sphere
     double radius;
     Material material;
 
+    Sphere(): center(Vector3D(0,0,0)), radius(0),  material(Material(MATERIAL_STD_DIFFUSE))
+    {
+        return;
+    }
+
+    Sphere(Vector3D center, double radius): center(center), radius(radius),  material(Material(MATERIAL_STD_DIFFUSE))
+    {
+        return;
+    }
+
+    Sphere(Vector3D center, double radius, Material material): center(center), radius(radius), material(material)
+    {
+        return;
+    }
+
+
     // () <-
 
     // 设交点为 p
@@ -30,25 +46,50 @@ struct Sphere
         Vector3D center_to_origin = ray.origin - sphere.center;
         double radius = sphere.radius;
 
-        double a = direction.Dot(direction);
-        double b = 2 * center_to_origin.Dot(direction);
-        double c = center_to_origin.Dot(center_to_origin) - radius * radius;
+        double equation_coefficient_a = direction.Dot(direction);
+        double equation_coefficient_b = 2 * center_to_origin.Dot(direction);
+        double equation_coefficient_c = center_to_origin.Dot(center_to_origin) - radius * radius;
 
-        // (-b +- sqrt(b^2 - 4ac)) / 2
+        double equation_delta = sqrt(equation_coefficient_b * equation_coefficient_b - 4 * equation_coefficient_a * equation_coefficient_c);
+        double equation_root1 = (-equation_coefficient_b - equation_delta) / 2;
+        double equation_root2 = (-equation_coefficient_b + equation_delta) / 2;
 
-        double delta = sqrt(b * b - 4 * a * c);
-        double t1 = (-b - delta) / 2;
-        double t2 = (-b + delta) / 2;
-
-        if (t1 >= 0)
+        if (equation_root1 >= 0)
         {
-            return t1;
+            return equation_root1;
         }
         else
         {
-            return t2;
+            return equation_root2;
         }
     }
+
+    cjsonobj::CJsonObject ToJsonObject()
+    {
+        cjsonobj::CJsonObject jsonobj;
+        jsonobj.Add("center", center.ToJsonObject());
+        jsonobj.Add("radius", radius);
+        jsonobj.Add("material", material.ToJsonObject());
+        return jsonobj;
+    }
+
+    void FromJsonObject(const cjsonobj::CJsonObject &jsonobj)
+    {
+        cjsonobj::CJsonObject jsonobj_center, jsonobj_material;
+        jsonobj.Get("center",jsonobj_center);
+        jsonobj.Get("radius",radius);
+        jsonobj.Get("material",jsonobj_material);
+        center.FromJsonObject(jsonobj_center);
+        material.FromJsonObject(jsonobj_material);
+    }
+
+    friend Sphere SphereFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
+    {
+        Sphere ans;
+        ans.FromJsonObject(jsonobj);
+        return ans;
+    }
+
 };
 
 #endif

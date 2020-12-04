@@ -85,11 +85,7 @@ struct Material
     friend Material MaterialFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
     {
         Material ans;
-        jsonobj.Get("diffuse", ans.diffuse);
-        jsonobj.Get("specular", ans.specular);
-        jsonobj.Get("refrection", ans.refrection);
-        jsonobj.Get("emission", ans.emission);
-        jsonobj.Get("refrect_index", ans.refrect_index);
+        ans.FromJsonObject(jsonobj);
         return ans;
     }
 };
