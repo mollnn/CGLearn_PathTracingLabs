@@ -138,6 +138,12 @@ struct Vector3D
         return sqrt(opd.x * opd.x + opd.y * opd.y + opd.z * opd.z);
     }
 
+    Vector3D Unit()
+    {
+        double norm = Norm();
+        return {x / norm, y / norm, z / norm};
+    }
+
     Vector3D operator-()
     {
         return {-(*this).x, -(*this).y, -(*this).z};
