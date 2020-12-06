@@ -60,13 +60,15 @@ struct Sphere
         material.FromJsonObject(jsonobj_material);
     }
 
-    Sphere SphereFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
-    {
-        Sphere ans;
-        ans.FromJsonObject(jsonobj);
-        return ans;
-    }
+    friend Sphere SphereFromJsonObject(const cjsonobj::CJsonObject &jsonobj);
 };
+
+Sphere SphereFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
+{
+    Sphere ans;
+    ans.FromJsonObject(jsonobj);
+    return ans;
+}
 
 double GetIntersectionDistance(const Sphere &sphere, const Ray &ray)
 {

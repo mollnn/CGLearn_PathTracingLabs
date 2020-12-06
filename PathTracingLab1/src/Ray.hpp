@@ -38,12 +38,14 @@ struct Ray
         direction.FromJsonObject(jsonobj_direction);
     }
 
-    friend Ray RayFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
-    {
-        Ray ans;
-        ans.FromJsonObject(jsonobj);
-        return ans;
-    }
+    friend Ray RayFromJsonObject(const cjsonobj::CJsonObject &jsonobj);
 };
+
+Ray RayFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
+{
+    Ray ans;
+    ans.FromJsonObject(jsonobj);
+    return ans;
+}
 
 #endif

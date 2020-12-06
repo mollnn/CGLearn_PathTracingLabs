@@ -4,31 +4,22 @@
 #include "Material.hpp"
 #include "Ray.hpp"
 #include "Sphere.hpp"
+#include "Scene.hpp"
 
-void sphere_ray_intersection_test()
+void module_test_scene_test()
 {
-    Sphere sphere(Vector3D(0, 0, 0), 1);
-    Ray ray(Vector3D(-2, 0, 0), Vector3D(1, 0, 0));
-    Ray ray2(Vector3D(-3, 0, 0), Vector3D(1, 0, 0));
-    Ray ray3(Vector3D(2, 0, 0), Vector3D(1, 0, 0));
-    Ray ray4(Vector3D(0, 0, 0), Vector3D(0, 1, 0));
-    std::cout << GetIntersectionDistance(sphere, ray) << std::endl;
-    std::cout << GetIntersectionDistance(sphere, ray2) << std::endl;
-    std::cout << GetIntersectionDistance(sphere, ray3) << std::endl;
-    std::cout << GetIntersectionDistance(sphere, ray4) << std::endl;
-}
-
-void sphere_ray_intersection_test_2()
-{
-    Sphere sphere(Vector3D(-1, 0, 0), 2);
-    Ray ray(Vector3D(0, 0, 0), Vector3D(0, 1, 0));
-    Ray ray2(Vector3D(0, 0, 0), Vector3D(0, 1, 1).Unit());
-    std::cout << GetIntersectionDistance(sphere, ray) << std::endl;
-    std::cout << GetIntersectionDistance(sphere, ray2) << std::endl;
+    Scene scene(Sphere(Vector3D(0,0,0),1));
+    std::cout<<scene.ToJsonObject().ToString()<<std::endl;
+    scene.Push(Sphere(Vector3D(1,1,1),2));
+    std::string tmp=scene.ToJsonObject().ToString();
+    std::cout<<scene.ToJsonObject().ToString()<<std::endl;
+    cjsonobj::CJsonObject jsonobj;
+    jsonobj.Parse(tmp);
+    Scene scene_rev=SceneFromJsonObject(jsonobj);
+    std::cout<<scene_rev.ToJsonObject().ToString()<<std::endl;
 }
 
 int main()
 {
-    sphere_ray_intersection_test();
-    sphere_ray_intersection_test_2();
+    module_test_scene_test();
 }
