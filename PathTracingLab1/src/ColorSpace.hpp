@@ -1,5 +1,5 @@
-#ifndef _COLORSPACE_HPP
-#define _COLORSPACE_HPP
+#ifndef _COLORSPACE_HPP_
+#define _COLORSPACE_HPP_
 
 #include <bits/stdc++.h>
 #include "json/CJsonObject.hpp"
