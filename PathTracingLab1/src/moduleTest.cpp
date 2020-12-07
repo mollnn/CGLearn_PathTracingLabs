@@ -7,17 +7,18 @@
 #include "Scene.hpp"
 #include "Random.hpp"
 #include "Timer.hpp"
+#include "Image.hpp"
 
-void TimerTest()
+void ImageTest()
 {
-    Timer timer;
-    for (int i = 1; i <= 1e9; i++)
-        i = i;
-    std::cout << timer.End() << std::endl;
-    timer.Print();
+    Image image(512,512);
+    system("pause");
+    image.GenerateTestImage();
+    system("pause");
+    image.WriteToPPM("test.ppm");
 }
 
 int main()
 {
-    TimerTest();
+    ImageTest();
 }

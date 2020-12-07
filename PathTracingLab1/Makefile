@@ -24,3 +24,11 @@ run:							bin/PathTracingLab1.exe
 
 test:							bin/moduleTest.exe
 	bin/moduleTest.exe
+
+simg:
+	util/ppmviewer.exe test.ppm
+
+ctest:
+	make clean
+	make test
+	make simg
