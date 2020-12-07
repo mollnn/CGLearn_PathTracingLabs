@@ -4,9 +4,11 @@
 #include <bits/stdc++.h>
 
 /*
+
 fprintf(f, "P3\n%d %d\n%d\n", img_w, img_h, 255);
 for (int i = 0; i < img_w * img_h; i++)
     fprintf(f, "%d\n%d\n%d\n", ColorFloat2Int(img_buffer[i].x), ColorFloat2Int(img_buffer[i].y), ColorFloat2Int(img_buffer[i].z));
+
 */
 
 struct Image
@@ -72,47 +74,38 @@ struct Image
         }
     }
 
-    // 生成测试图像
-    void GenerateTestImage()
-    {
-        if (size_x == 0 || size_y == 0)
-        {
-            return;
-        }
-        for (int y = 0; y < size_y; y++)
-        {
-            for (int x = 0; x < size_x; x++)
-            {
-                int tmp = 3 * x + y;
-                buffer[y][x] = 1.0 * tmp / (size_x * 3 + size_y);
-            }
-        }
-    }
-
     // 写入 PPM 文件
     void WriteToPPM(std::string filename)
     {
-        std::ofstream output_stream(filename);
-
-        using namespace std;
-        output_stream << "P3" << endl;
-        output_stream << size_x << " " << size_y << endl;
-        output_stream << 255 << endl;
+        FILE *f = fopen(filename.c_str(), "w"); // Write image to PPM file.
+        fprintf(f, "P3\n%d %d\n%d\n", size_x, size_y, 255);
 
         for (int i = 0; i < size_y; i++)
         {
             for (int j = 0; j < size_x; j++)
             {
-                output_stream << (int)(buffer[i][j] * 255);
-                output_stream << endl;
-                output_stream << (int)(buffer[i][j] * 255);
-                output_stream << endl;
-                output_stream << (int)(buffer[i][j] * 255);
-                output_stream << endl;
+                int tmp = (int)(buffer[i][j] * 255);
+                fprintf(f, "%d\n%d\n%d\n", tmp, tmp, tmp);
             }
         }
+    }
 
-        output_stream.close();
+    // 像素读
+    double GetPixel(int x, int y)
+    {
+        return buffer[y][x];
+    }
+
+    // 获取像素引用
+    double &GetPixelRef(int x, int y)
+    {
+        return buffer[y][x];
+    }
+
+    // 像素写
+    void SetPixel(int x, int y, double color)
+    {
+        buffer[y][x] = color;
     }
 };
 

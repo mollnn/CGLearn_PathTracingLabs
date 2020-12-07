@@ -11,10 +11,14 @@
 
 void ImageTest()
 {
-    Image image(512,512);
-    system("pause");
-    image.GenerateTestImage();
-    system("pause");
+    Image image(512, 512);
+    for (int i = 0; i < image.size_x; i++)
+    {
+        for (int j = 0; j < image.size_y; j++)
+        {
+            image.SetPixel(i, j, (j % 10) / 9.0);
+        }
+    }
     image.WriteToPPM("test.ppm");
 }
 
