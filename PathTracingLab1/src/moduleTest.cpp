@@ -5,21 +5,19 @@
 #include "Ray.hpp"
 #include "Sphere.hpp"
 #include "Scene.hpp"
+#include "Random.hpp"
+#include "Timer.hpp"
 
-void module_test_scene_test()
+void TimerTest()
 {
-    Scene scene(Sphere(Vector3D(0, 0, 0), 1));
-    std::cout << scene.ToJsonObject().ToString() << std::endl;
-    scene.Push(Sphere(Vector3D(1, 1, 1), 2));
-    std::string tmp = scene.ToJsonObject().ToString();
-    std::cout << scene.ToJsonObject().ToString() << std::endl;
-    cjsonobj::CJsonObject jsonobj;
-    jsonobj.Parse(tmp);
-    Scene scene_rev = SceneFromJsonObject(jsonobj);
-    std::cout << scene_rev.ToJsonObject().ToString() << std::endl;
+    Timer timer;
+    for (int i = 1; i <= 1e9; i++)
+        i = i;
+    std::cout << timer.End() << std::endl;
+    timer.Print();
 }
 
 int main()
 {
-    module_test_scene_test();
+    TimerTest();
 }
