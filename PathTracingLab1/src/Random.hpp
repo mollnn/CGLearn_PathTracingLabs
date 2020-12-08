@@ -33,4 +33,10 @@ double Rand()
     return (double)xorshf96() / (double)0xffffffffU;
 }
 
+
+double RandBetween(double l,double r)
+{
+    return l+(r-l)*Rand();
+}
+
 #endif

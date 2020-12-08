@@ -8,21 +8,23 @@
 #include "Random.hpp"
 #include "Timer.hpp"
 #include "Image.hpp"
+#include "Sampler.hpp"
 
-void ImageTest()
+void SampleTest()
 {
-    Image image(512, 512);
-    for (int i = 0; i < image.size_x; i++)
+    Sampler sampler(10,10,2);
+
+    sampler.MakeSamples();
+
+    for(auto sample:sampler.samples)
     {
-        for (int j = 0; j < image.size_y; j++)
-        {
-            image.SetPixel(i, j, (j % 10) / 9.0);
-        }
+        using namespace std;
+        cout<<sample.image_x<<" "<<sample.image_y<<" "<<sample.film_x<<" "<<sample.film_y<<" "<<sample.weight<<endl;
     }
-    image.WriteToPPM("test.ppm");
 }
 
 int main()
 {
-    ImageTest();
+    SampleTest();
+    
 }
