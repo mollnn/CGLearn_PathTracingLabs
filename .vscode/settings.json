@@ -9,6 +9,7 @@
         "ostream": "cpp",
         "streambuf": "cpp",
         "xiosbase": "cpp",
-        "xlocnum": "cpp"
+        "xlocnum": "cpp",
+        "iterator": "cpp"
     }
 }

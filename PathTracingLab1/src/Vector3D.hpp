@@ -223,4 +223,8 @@ struct Vector3D
     }
 };
 
+typedef Vector3D Vertex3D;
+typedef Vector3D Point3D;
+typedef Point3D Point;
+
 #endif

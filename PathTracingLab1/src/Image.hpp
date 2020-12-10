@@ -3,14 +3,6 @@
 
 #include <bits/stdc++.h>
 
-/*
-
-fprintf(f, "P3\n%d %d\n%d\n", img_w, img_h, 255);
-for (int i = 0; i < img_w * img_h; i++)
-    fprintf(f, "%d\n%d\n%d\n", ColorFloat2Int(img_buffer[i].x), ColorFloat2Int(img_buffer[i].y), ColorFloat2Int(img_buffer[i].z));
-
-*/
-
 struct Image
 {
     int size_x;

@@ -27,12 +27,17 @@ struct Scene
         sphere_array.push_back(sphere);
     }
 
-    int Size()
+    int Size() const
     {
         return sphere_array.size();
     }
 
-    Sphere &operator[](int id)
+    Sphere &operator[](int id) 
+    {
+        return sphere_array[id];
+    }
+
+    const Sphere &operator[](int id) const
     {
         return sphere_array[id];
     }
