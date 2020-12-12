@@ -1,5 +1,5 @@
 bin/PathTracingLab1.exe: 		lib/Main.o lib/json/cJSON.o lib/json/CJsonObject.o
-	g++ -o bin/PathTracingLab1.exe lib/Main.o lib/json/cJSON.o lib/json/CJsonObject.o
+	g++ -o bin/PathTracingLab1.exe lib/Main.o lib/json/cJSON.o lib/json/CJsonObject.o  -fopenmp
 
 bin/moduleTest.exe:				lib/moduleTest.o lib/json/cJSON.o lib/json/CJsonObject.o
 	g++ -o bin/moduleTest.exe lib/moduleTest.o lib/json/cJSON.o lib/json/CJsonObject.o
@@ -8,7 +8,7 @@ lib/moduleTest.o:				src/moduleTest.cpp
 	g++ -o lib/moduleTest.o -c src/moduleTest.cpp
 
 lib/Main.o:						src/Main.cpp
-	g++ -o lib/Main.o -c src/Main.cpp
+	g++ -o lib/Main.o -c src/Main.cpp  -fopenmp
 
 lib/json/cJSON.o:				src/json/cJSON.c 
 	gcc -o lib/json/cJSON.o -c src/json/cJSON.c 

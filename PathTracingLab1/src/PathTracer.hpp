@@ -48,7 +48,7 @@ std::tuple<double, Point, int> GetIntersection(const Scene &scene, const Ray &ra
 Radiance PathTracing(Ray ray, int depth, const Scene &scene)
 {
     // 递归边界条件，这里采用强硬深度限制，如果递归深度超过 10 就停止计算
-    if (depth > 10)
+    if (depth > 5)
     {
         return 0; // 返回背景色
     }
@@ -77,28 +77,6 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     Vector3D refl_dir = in_dir + 2 * Dot(in_dir, normal) * normal;  // 反射光线方向
     Vector3D refr_dir = sin_j * base - cos_j * normal;              // 折射光线方向
 
-    // 预处理漫反射光线的方向
-    double diffuse_phi = 2 * PI * Rand();               // 漫反射光线的投影方向
-    double diffuse_radius = sqrt(Rand());               // 漫反射光线的投影半径
-    double cos_theta = diffuse_radius;                  // 漫反射光线 theta cos
-    double sin_theta = sqrt(1 - cos_theta * cos_theta); // 漫反射光线 theta sin
-    double cos_phi = cos(diffuse_phi);                  // 漫反射光线 phi cos
-    double sin_phi = sin(diffuse_phi);                  // 漫反射光线 phi sin
-    Vector3D diffuse_unit_k = normal;                   // 微平面坐标系 k 方向基矢
-    Vector3D diffuse_unit_i = Cross(diffuse_unit_k.x > 0.1
-                                        ? Vector3D(0, 1, 0)
-                                        : Vector3D(1, 0, 0),
-                                    diffuse_unit_k)
-                                  .Unit();                                // 微平面坐标系 i 方向基矢
-    Vector3D diffuse_unit_j = Cross(diffuse_unit_i, diffuse_unit_k);      // 微平面坐标系 j 方向基矢
-    double diffuse_proj_i = cos_theta * cos_phi;                          // 漫反射光线在微平面坐标系 k 方向的投影
-    double diffuse_proj_j = cos_theta * sin_phi;                          // 漫反射光线在微平面坐标系 i 方向的投影
-    double diffuse_proj_k = sin_theta;                                    // 漫反射光线在微平面坐标系 j 方向的投影
-    Vector3D diffuse_dir_i = diffuse_proj_i * diffuse_unit_i;             // 漫反射光线在微平面坐标系 i 方向的分量
-    Vector3D diffuse_dir_j = diffuse_proj_j * diffuse_unit_j;             // 漫反射光线在微平面坐标系 j 方向的分量
-    Vector3D diffuse_dir_k = diffuse_proj_k * diffuse_unit_k;             // 漫反射光线在微平面坐标系 k 方向的分量
-    Vector3D diffuse_dir = diffuse_dir_i + diffuse_dir_j + diffuse_dir_k; // 漫反射光线方向
-
     // 预处理光强信息
     double refrect_index_in = is_into_sphere ? 1.0 : hit_obj.material.refrect_index;
     double refrect_index_out = is_into_sphere ? hit_obj.material.refrect_index : 1.0;
@@ -117,6 +95,27 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double rand_value = Rand();
     if (rand_value < diffuse_intensity)
     {
+        // 预处理漫反射光线的方向
+        double diffuse_phi = 2 * PI * Rand();               // 漫反射光线的投影方向
+        double diffuse_radius = sqrt(Rand());               // 漫反射光线的投影半径
+        double cos_theta = diffuse_radius;                  // 漫反射光线 theta cos
+        double sin_theta = sqrt(1 - cos_theta * cos_theta); // 漫反射光线 theta sin
+        double cos_phi = cos(diffuse_phi);                  // 漫反射光线 phi cos
+        double sin_phi = sin(diffuse_phi);                  // 漫反射光线 phi sin
+        Vector3D diffuse_unit_k = normal;                   // 微平面坐标系 k 方向基矢
+        Vector3D diffuse_unit_i = Cross(diffuse_unit_k.x > 0.1
+                                            ? Vector3D(0, 1, 0)
+                                            : Vector3D(1, 0, 0),
+                                        diffuse_unit_k)
+                                      .Unit();                                // 微平面坐标系 i 方向基矢
+        Vector3D diffuse_unit_j = Cross(diffuse_unit_i, diffuse_unit_k);      // 微平面坐标系 j 方向基矢
+        double diffuse_proj_i = cos_theta * cos_phi;                          // 漫反射光线在微平面坐标系 k 方向的投影
+        double diffuse_proj_j = cos_theta * sin_phi;                          // 漫反射光线在微平面坐标系 i 方向的投影
+        double diffuse_proj_k = sin_theta;                                    // 漫反射光线在微平面坐标系 j 方向的投影
+        Vector3D diffuse_dir_i = diffuse_proj_i * diffuse_unit_i;             // 漫反射光线在微平面坐标系 i 方向的分量
+        Vector3D diffuse_dir_j = diffuse_proj_j * diffuse_unit_j;             // 漫反射光线在微平面坐标系 j 方向的分量
+        Vector3D diffuse_dir_k = diffuse_proj_k * diffuse_unit_k;             // 漫反射光线在微平面坐标系 k 方向的分量
+        Vector3D diffuse_dir = diffuse_dir_i + diffuse_dir_j + diffuse_dir_k; // 漫反射光线方向
         // 生成漫反射光线
         Ray diffuse_ray(hit_point, diffuse_dir);
         return PathTracing(diffuse_ray, depth + 1, scene) + material.emission;
