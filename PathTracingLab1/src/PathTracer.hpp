@@ -16,6 +16,8 @@
 
 const double PI = acos(-1);
 
+#define dbg(x) std::cout<<#x<<" := "<<x<<std::endl
+
 // 求出一条光线与一个特定的物体的交点，返回 <距离，交点>
 std::tuple<double, Point> GetIntersection(const Sphere &sphere, const Ray &ray)
 {
@@ -84,12 +86,36 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double refrect_index_delta = refrect_index_in - refrect_index_out;
     double fresnel_i0 = refrect_index_delta * refrect_index_delta / refrect_index_sum / refrect_index_sum;
     double fresnel_x = 1 - (is_into_sphere ? cos_i : cos_j);
+    // 特殊处理全反射情况
+    if(sin_j>1-1e-6) fresnel_x=1;
+    if(isnanf(fresnel_x)) fresnel_x=1;
     const Material &material = hit_obj.material;
     double fresnel_reflection_intensity = fresnel_i0 + (1 - fresnel_i0) * pow(fresnel_x, 5);
     double fresnel_refrection_intensity = 1 - fresnel_reflection_intensity;
     double reflect_intensity = material.specular + material.refrection * fresnel_reflection_intensity;
     double refrect_intensity = material.refrection * fresnel_refrection_intensity;
     double diffuse_intensity = material.diffuse;
+
+    // dbg(cos_i);
+    // dbg(sin_i);
+    // dbg(cos_j);
+    // dbg(sin_j);
+    // dbg(refrect_index_in);
+    // dbg(refrect_index_out);
+    // dbg(refrect_index_sum);
+    // dbg(refrect_index_delta);
+    // dbg(fresnel_i0);
+    // dbg(fresnel_x);
+    // dbg(fresnel_reflection_intensity);
+    // dbg(fresnel_refrection_intensity);
+
+    // std::cout<<reflect_intensity<<"\t"<<refrect_intensity<<"\t"<<diffuse_intensity<<std::endl;
+
+    if(isnanf(reflect_intensity))
+    {
+        std::cerr<<"error"<<std::endl;
+        exit(0);
+    }
 
     // 按概率随机生成光线，递归计算
     double rand_value = Rand();
