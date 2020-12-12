@@ -10,21 +10,8 @@
 #include "Image.hpp"
 #include "Sampler.hpp"
 
-void SampleTest()
-{
-    Sampler sampler(10,10,2);
-
-    sampler.MakeSamples();
-
-    for(auto sample:sampler.samples)
-    {
-        using namespace std;
-        cout<<sample.image_x<<" "<<sample.image_y<<" "<<sample.film_x<<" "<<sample.film_y<<" "<<sample.weight<<endl;
-    }
-}
-
 int main()
 {
-    SampleTest();
+    
     
 }

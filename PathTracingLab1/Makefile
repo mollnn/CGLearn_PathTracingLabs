@@ -28,6 +28,12 @@ test:							bin/moduleTest.exe
 simg:
 	util/ppmviewer.exe test.ppm
 
+x:
+	make clean
+	make
+	make run
+	make simg
+
 ctest:
 	make clean
 	make test

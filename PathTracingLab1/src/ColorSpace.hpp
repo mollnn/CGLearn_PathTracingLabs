@@ -4,6 +4,8 @@
 #include <bits/stdc++.h>
 #include "json/CJsonObject.hpp"
 
+typedef double Radiance;
+
 double Clamp(double x)
 {
     x = std::min(x, 1.0);

@@ -2,6 +2,7 @@
 #define _IMAGE_HPP_
 
 #include <bits/stdc++.h>
+#include "ColorSpace.hpp"
 
 struct Image
 {
@@ -76,7 +77,7 @@ struct Image
         {
             for (int j = 0; j < size_x; j++)
             {
-                int tmp = (int)(buffer[i][j] * 255);
+                int tmp = (int)(Clamp(IntensityToBrightness(buffer[i][j])) * 255);
                 fprintf(f, "%d\n%d\n%d\n", tmp, tmp, tmp);
             }
         }
@@ -98,6 +99,12 @@ struct Image
     void SetPixel(int x, int y, double color)
     {
         buffer[y][x] = color;
+    }
+
+    // 像素加
+    void IncPixel(int x, int y, double color)
+    {
+        buffer[y][x] += color;
     }
 };
 

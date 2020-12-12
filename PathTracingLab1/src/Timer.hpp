@@ -35,6 +35,11 @@ struct Timer
     {
         Start();
     }
+    double Current()
+    {
+        double ans = (clock() - time_start) * 1.0 / CLOCKS_PER_SEC;
+        return ans;
+    }
     double GetTime() // 获取计时结果
     {
         double ans = (time_end - time_start) * 1.0 / CLOCKS_PER_SEC;

@@ -48,4 +48,6 @@ Ray RayFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
     return ans;
 }
 
+typedef Ray Camera;
+
 #endif
