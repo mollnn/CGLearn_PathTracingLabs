@@ -75,9 +75,9 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double sin_i = sqrt(1 - cos_i * cos_i);                                 // 入射角 sin
     double sin_j = sin_i / relative_refraction_index;                       // 折射角 sin
     double cos_j = sqrt(1 - sin_j * sin_j);                                 // 折射角 cos
-    Vector3D base = (in_dir + Dot(in_dir, normal) * normal).Unit();         // 入射面中表面的切线方向
+    Vector3D base_dir = (in_dir + Dot(in_dir, normal) * normal).Unit();     // 入射面中表面的切线方向
     Vector3D refl_dir = (in_dir - 2 * Dot(in_dir, normal) * normal).Unit(); // 反射光线方向
-    Vector3D refr_dir = sin_j * base - cos_j * normal;                      // 折射光线方向
+    Vector3D refr_dir = sin_j * base_dir - cos_j * normal;                  // 折射光线方向
 
     // 预处理光强信息
     double refrect_index_in = is_into_sphere ? 1.0 : hit_obj.material.refrect_index;

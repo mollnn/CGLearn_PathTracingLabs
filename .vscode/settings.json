@@ -10,6 +10,7 @@
         "streambuf": "cpp",
         "xiosbase": "cpp",
         "xlocnum": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "fstream": "cpp"
     }
 }

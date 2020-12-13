@@ -14,25 +14,20 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
 #ifndef _OPENMP
     cerr << "OpenMP not supported! " << endl;
 #endif
 
-    // Make Scene
-    Sphere sphere_light1(Point3D(0, 0, 1.5), 0.3, MATERIAL_EMISSION_DIFFUSE);
-    Sphere sphere_light2(Point3D(-1, 0.2, -1.5), 0.3, MATERIAL_EMISSION_DIFFUSE);
-    Sphere sphere_obj1(Point3D(0, 0, 0.6), 0.5, MATERIAL_STD_DIFFUSE);
-    Sphere sphere_obj2(Point3D(0, 0, -0.3), 0.3, MATERIAL_STD_SPECULAR);
-    Sphere sphere_background(Point3D(0, 0, 0), 10, MATERIAL_STD_DIFFUSE);
-
     Scene scene;
-    scene.Push(sphere_light1);
-    scene.Push(sphere_light2);
-    scene.Push(sphere_obj1);
-    scene.Push(sphere_obj2);
-    scene.Push(sphere_background);
+    std::ifstream jsonifs_scene(argv[1]);
+    std::stringstream jsonifs_buffer_scene;
+    jsonifs_buffer_scene << jsonifs_scene.rdbuf();
+    std::string jsonstr_scene(jsonifs_buffer_scene.str()); 
+    cjsonobj::CJsonObject jsonobj_scene;
+    jsonobj_scene.Parse(jsonstr_scene);
+    scene.FromJsonObject(jsonobj_scene);
 
     // Set Camera
     Camera camera(Point3D(3, 0, 0), Vector3D(-1, 0, 0));
@@ -80,5 +75,5 @@ int main()
         }
     }
 
-    image.WriteToPPM("test.ppm");
+    image.WriteToPPM(argv[2]);
 }
