@@ -16,7 +16,7 @@
 
 const double PI = acos(-1);
 
-#define dbg(x) std::cout<<#x<<" := "<<x<<std::endl
+#define dbg(x) std::cout << #x << " := " << x << std::endl
 
 // 求出一条光线与一个特定的物体的交点，返回 <距离，交点>
 std::tuple<double, Point> GetIntersection(const Sphere &sphere, const Ray &ray)
@@ -70,14 +70,14 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double relative_refraction_index = is_into_sphere ? hit_obj.material.refrect_index : 1.0 / hit_obj.material.refrect_index;
 
     // 预处理镜面反射与折射光线的方向
-    Vector3D in_dir = ray.direction;                                // 光线入射方向
-    double cos_i = abs(Dot(in_dir, normal));                        // 入射角 cos
-    double sin_i = sqrt(1 - cos_i * cos_i);                         // 入射角 sin
-    double sin_j = sin_i / relative_refraction_index;               // 折射角 sin
-    double cos_j = sqrt(1 - sin_j * sin_j);                         // 折射角 cos
-    Vector3D base = (in_dir + Dot(in_dir, normal) * normal).Unit(); // 入射面中表面的切线方向
-    Vector3D refl_dir = in_dir + 2 * Dot(in_dir, normal) * normal;  // 反射光线方向
-    Vector3D refr_dir = sin_j * base - cos_j * normal;              // 折射光线方向
+    Vector3D in_dir = ray.direction;                                        // 光线入射方向
+    double cos_i = abs(Dot(in_dir, normal));                                // 入射角 cos
+    double sin_i = sqrt(1 - cos_i * cos_i);                                 // 入射角 sin
+    double sin_j = sin_i / relative_refraction_index;                       // 折射角 sin
+    double cos_j = sqrt(1 - sin_j * sin_j);                                 // 折射角 cos
+    Vector3D base = (in_dir + Dot(in_dir, normal) * normal).Unit();         // 入射面中表面的切线方向
+    Vector3D refl_dir = (in_dir - 2 * Dot(in_dir, normal) * normal).Unit(); // 反射光线方向
+    Vector3D refr_dir = sin_j * base - cos_j * normal;                      // 折射光线方向
 
     // 预处理光强信息
     double refrect_index_in = is_into_sphere ? 1.0 : hit_obj.material.refrect_index;
@@ -87,8 +87,10 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double fresnel_i0 = refrect_index_delta * refrect_index_delta / refrect_index_sum / refrect_index_sum;
     double fresnel_x = 1 - (is_into_sphere ? cos_i : cos_j);
     // 特殊处理全反射情况
-    if(sin_j>1-1e-6) fresnel_x=1;
-    if(isnanf(fresnel_x)) fresnel_x=1;
+    if (sin_j > 1 - 1e-6)
+        fresnel_x = 1;
+    if (isnanf(fresnel_x))
+        fresnel_x = 1;
     const Material &material = hit_obj.material;
     double fresnel_reflection_intensity = fresnel_i0 + (1 - fresnel_i0) * pow(fresnel_x, 5);
     double fresnel_refrection_intensity = 1 - fresnel_reflection_intensity;
@@ -111,11 +113,16 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
 
     // std::cout<<reflect_intensity<<"\t"<<refrect_intensity<<"\t"<<diffuse_intensity<<std::endl;
 
-    if(isnanf(reflect_intensity))
-    {
-        std::cerr<<"error"<<std::endl;
-        exit(0);
-    }
+    // if (isnanf(reflect_intensity))
+    // {
+    //     std::cerr << "error" << std::endl;
+    //     exit(0);
+    // }
+
+    // if (reflect_intensity > 0.5)
+    // {
+    //     std::cerr << "refl_dir : " << refl_dir.ToJsonObject().ToString() << std::endl;
+    // }
 
     // 按概率随机生成光线，递归计算
     double rand_value = Rand();

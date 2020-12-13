@@ -22,9 +22,9 @@ int main()
 
     // Make Scene
     Sphere sphere_light1(Point3D(0, 0, 1.5), 0.3, MATERIAL_EMISSION_DIFFUSE);
-    Sphere sphere_light2(Point3D(0, 0, -1.5), 0.3, MATERIAL_EMISSION_DIFFUSE);
+    Sphere sphere_light2(Point3D(-1, 0.2, -1.5), 0.3, MATERIAL_EMISSION_DIFFUSE);
     Sphere sphere_obj1(Point3D(0, 0, 0.6), 0.5, MATERIAL_STD_DIFFUSE);
-    Sphere sphere_obj2(Point3D(0, 0, -0.6), 0.5, MATERIAL_STD_SPECULAR);
+    Sphere sphere_obj2(Point3D(0, 0, -0.3), 0.3, MATERIAL_STD_SPECULAR);
     Sphere sphere_background(Point3D(0, 0, 0), 10, MATERIAL_STD_DIFFUSE);
 
     Scene scene;
@@ -46,7 +46,7 @@ int main()
     Image image(image_size_x, image_size_y);
 
     // Gen samples
-    Sampler sampler(image_size_x, image_size_y, 256);
+    Sampler sampler(image_size_x, image_size_y, 128);
     sampler.MakeSamples();
 
     // Samples to Rays
