@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     std::ifstream jsonifs_scene(argv[1]);
     std::stringstream jsonifs_buffer_scene;
     jsonifs_buffer_scene << jsonifs_scene.rdbuf();
-    std::string jsonstr_scene(jsonifs_buffer_scene.str()); 
+    std::string jsonstr_scene(jsonifs_buffer_scene.str());
     cjsonobj::CJsonObject jsonobj_scene;
     jsonobj_scene.Parse(jsonstr_scene);
     scene.FromJsonObject(jsonobj_scene);
@@ -41,14 +41,14 @@ int main(int argc, char *argv[])
     Image image(image_size_x, image_size_y);
 
     // Gen samples
-    Sampler sampler(image_size_x, image_size_y, 128);
+    Sampler sampler(image_size_x, image_size_y, 64);
     sampler.MakeSamples();
 
     // Samples to Rays
     int progress_count = 0;
     Timer timer;
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < sampler.samples.size(); i++)
     {
         auto sample = sampler.samples[i];
@@ -65,10 +65,8 @@ int main(int argc, char *argv[])
 
         ++progress_count;
 
-        if (timer.Current() > 1.0)
+        if (progress_count % 100000 == 0)
         {
-            double t = 1.0 * progress_count / sampler.samples.size() * 100;
-            timer.Start();
             stringstream t_stringstream;
             t_stringstream << 1.0 * progress_count / sampler.samples.size() * 100 << "\%" << endl;
             cout << t_stringstream.str();

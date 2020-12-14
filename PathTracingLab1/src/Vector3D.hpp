@@ -221,6 +221,16 @@ struct Vector3D
         lhs << jsonstr;
         return lhs;
     }
+
+    bool operator==(const Vector3D &rhs)
+    {
+        return abs(x - rhs.x) < 1e-6 && abs(y - rhs.y) < 1e-6 && abs(z - rhs.z) < 1e-6;
+    }
+
+    bool operator!=(const Vector3D &rhs)
+    {
+        return !(*this == rhs);
+    }
 };
 
 typedef Vector3D Vertex3D;

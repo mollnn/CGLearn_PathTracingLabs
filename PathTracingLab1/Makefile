@@ -34,6 +34,16 @@ x:
 	make run
 	make simg
 
+xx:
+	make
+	make run
+	make simg
+
+y:
+	make run
+	make simg
+
+
 ctest:
 	make clean
 	make test

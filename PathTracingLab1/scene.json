@@ -1,76 +1,61 @@
 [
 	{
 		"center": {
-			"x": 0.000000,
-			"y": 0.000000,
-			"z": 1.500000
+			"x": -3,
+			"y": 0.0,
+			"z": 0
 		},
-		"radius": 0.300000,
+		"radius": 0.1,
 		"material": {
-			"diffuse": 1.000000,
-			"specular": 0.000000,
-			"refrection": 0.000000,
-			"emission": 1.000000,
+			"diffuse": 0,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0.5,
 			"refrect_index": 1.500000
 		}
 	},
 	{
 		"center": {
-			"x": -1.000000,
-			"y": 0.200000,
-			"z": -1.500000
+			"x": 1,
+			"y": 0.5,
+			"z": 0
 		},
-		"radius": 0.300000,
+		"radius": 0.1,
 		"material": {
-			"diffuse": 1.000000,
-			"specular": 0.000000,
-			"refrection": 0.000000,
-			"emission": 1.000000,
+			"diffuse": 0,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
 			"refrect_index": 1.500000
 		}
 	},
 	{
 		"center": {
-			"x": 0.000000,
-			"y": 0.000000,
-			"z": 0.600000
+			"x": 0,
+			"y": 0,
+			"z": 0
 		},
-		"radius": 0.500000,
+		"radius": 1,
 		"material": {
-			"diffuse": 1.000000,
-			"specular": 0.000000,
-			"refrection": 0.000000,
-			"emission": 0.000000,
-			"refrect_index": 1.500000
+			"diffuse": 0.1,
+			"specular": 0.8,
+			"refrection": 0.00,
+			"emission": 0,
+			"refrect_index": 1.300000
 		}
 	},
 	{
 		"center": {
-			"x": 0.000000,
-			"y": 0.000000,
-			"z": -0.300000
+			"x": 0,
+			"y": 0,
+			"z": 0
 		},
-		"radius": 0.300000,
+		"radius": 5,
 		"material": {
-			"diffuse": 0.000000,
-			"specular": 1.000000,
-			"refrection": 0.000000,
-			"emission": 0.000000,
-			"refrect_index": 1.500000
-		}
-	},
-	{
-		"center": {
-			"x": 0.000000,
-			"y": 0.000000,
-			"z": 0.000000
-		},
-		"radius": 10.000000,
-		"material": {
-			"diffuse": 1.000000,
-			"specular": 0.000000,
-			"refrection": 0.000000,
-			"emission": 0.000000,
+			"diffuse": 0.1,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0.02,
 			"refrect_index": 1.500000
 		}
 	}

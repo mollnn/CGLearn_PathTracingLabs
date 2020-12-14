@@ -75,17 +75,17 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double sin_i = sqrt(1 - cos_i * cos_i);                                 // 入射角 sin
     double sin_j = sin_i / relative_refraction_index;                       // 折射角 sin
     double cos_j = sqrt(1 - sin_j * sin_j);                                 // 折射角 cos
-    Vector3D base_dir = (in_dir + Dot(in_dir, normal) * normal).Unit();     // 入射面中表面的切线方向
+    Vector3D base_dir = (in_dir - Dot(in_dir, normal) * normal).Unit();     // 入射面中表面的切线方向
     Vector3D refl_dir = (in_dir - 2 * Dot(in_dir, normal) * normal).Unit(); // 反射光线方向
     Vector3D refr_dir = sin_j * base_dir - cos_j * normal;                  // 折射光线方向
 
     // 预处理光强信息
-    double refrect_index_in = is_into_sphere ? 1.0 : hit_obj.material.refrect_index;
-    double refrect_index_out = is_into_sphere ? hit_obj.material.refrect_index : 1.0;
-    double refrect_index_sum = refrect_index_in + refrect_index_out;
-    double refrect_index_delta = refrect_index_in - refrect_index_out;
-    double fresnel_i0 = refrect_index_delta * refrect_index_delta / refrect_index_sum / refrect_index_sum;
-    double fresnel_x = 1 - (is_into_sphere ? cos_i : cos_j);
+    double refrect_index_in = is_into_sphere ? 1.0 : hit_obj.material.refrect_index;                       // 入射介质折射率
+    double refrect_index_out = is_into_sphere ? hit_obj.material.refrect_index : 1.0;                      // 折射介质折射率
+    double refrect_index_sum = refrect_index_in + refrect_index_out;                                       // 折射率之和
+    double refrect_index_delta = refrect_index_in - refrect_index_out;                                     // 折射率之差
+    double fresnel_i0 = refrect_index_delta * refrect_index_delta / refrect_index_sum / refrect_index_sum; // 菲涅尔反射光强系数
+    double fresnel_x = 1 - cos_i;                                                                          // 菲涅尔反射光强因子
     // 特殊处理全反射情况
     if (sin_j > 1 - 1e-6)
         fresnel_x = 1;
@@ -98,31 +98,10 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double refrect_intensity = material.refrection * fresnel_refrection_intensity;
     double diffuse_intensity = material.diffuse;
 
-    // dbg(cos_i);
-    // dbg(sin_i);
-    // dbg(cos_j);
-    // dbg(sin_j);
-    // dbg(refrect_index_in);
-    // dbg(refrect_index_out);
-    // dbg(refrect_index_sum);
-    // dbg(refrect_index_delta);
-    // dbg(fresnel_i0);
-    // dbg(fresnel_x);
-    // dbg(fresnel_reflection_intensity);
-    // dbg(fresnel_refrection_intensity);
-
-    // std::cout<<reflect_intensity<<"\t"<<refrect_intensity<<"\t"<<diffuse_intensity<<std::endl;
-
-    // if (isnanf(reflect_intensity))
-    // {
-    //     std::cerr << "error" << std::endl;
-    //     exit(0);
-    // }
-
-    // if (reflect_intensity > 0.5)
-    // {
-    //     std::cerr << "refl_dir : " << refl_dir.ToJsonObject().ToString() << std::endl;
-    // }
+    if (diffuse_intensity + reflect_intensity + refrect_intensity > 1)
+    {
+        std::cerr << "Material Wrong: Enegry Distribution Exceeded !" << std::endl;
+    }
 
     // 按概率随机生成光线，递归计算
     double rand_value = Rand();
@@ -150,25 +129,25 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
         Vector3D diffuse_dir_k = diffuse_proj_k * diffuse_unit_k;             // 漫反射光线在微平面坐标系 k 方向的分量
         Vector3D diffuse_dir = diffuse_dir_i + diffuse_dir_j + diffuse_dir_k; // 漫反射光线方向
         // 生成漫反射光线
-        Ray diffuse_ray(hit_point, diffuse_dir);
-        return PathTracing(diffuse_ray, depth + 1, scene) + material.emission;
+        Ray diffuse_ray(hit_point, diffuse_dir);                               // 漫反射光线
+        return PathTracing(diffuse_ray, depth + 1, scene) + material.emission; // 漫反射强度 + 自发光强度
     }
     else if (rand_value - diffuse_intensity < reflect_intensity)
     {
         // 生成镜面反射光线
-        Ray reflection_ray(hit_point, refl_dir);
-        return PathTracing(reflection_ray, depth + 1, scene) + material.emission;
+        Ray reflection_ray(hit_point, refl_dir);                                  // 镜面反射光线
+        return PathTracing(reflection_ray, depth + 1, scene) + material.emission; // 镜面反射强度 + 自发光强度
     }
     else if (rand_value - diffuse_intensity - reflect_intensity < refrect_intensity)
     {
         // 生成折射光线
-        Ray refrection_ray(hit_point, refr_dir);
-        return PathTracing(refrection_ray, depth + 1, scene) + material.emission;
+        Ray refrection_ray(hit_point, refr_dir);                                  // 折射光线
+        return PathTracing(refrection_ray, depth + 1, scene) + material.emission; // 折射光强度 + 自发光强度
     }
     else
     {
         // 吸收
-        return material.emission;
+        return material.emission; // 自发光强度
     }
 }
 
