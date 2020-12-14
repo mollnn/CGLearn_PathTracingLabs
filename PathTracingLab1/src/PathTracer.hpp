@@ -91,13 +91,14 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
         fresnel_x = 1;
     if (isnanf(fresnel_x))
         fresnel_x = 1;
-    const Material &material = hit_obj.material;
-    double fresnel_reflection_intensity = fresnel_i0 + (1 - fresnel_i0) * pow(fresnel_x, 5);
-    double fresnel_refrection_intensity = 1 - fresnel_reflection_intensity;
-    double reflect_intensity = material.specular + material.refrection * fresnel_reflection_intensity;
-    double refrect_intensity = material.refrection * fresnel_refrection_intensity;
-    double diffuse_intensity = material.diffuse;
+    const Material &material = hit_obj.material;                                                       // 命中物体的材质
+    double fresnel_reflection_intensity = fresnel_i0 + (1 - fresnel_i0) * pow(fresnel_x, 5);           // 菲涅尔反射强度
+    double fresnel_refrection_intensity = 1 - fresnel_reflection_intensity;                            // 菲涅尔折射强度
+    double reflect_intensity = material.specular + material.refrection * fresnel_reflection_intensity; // 总镜面反射强度
+    double refrect_intensity = material.refrection * fresnel_refrection_intensity;                     // 总折射强度
+    double diffuse_intensity = material.diffuse;                                                       // 总漫反射强度
 
+    // 能量守恒检查
     if (diffuse_intensity + reflect_intensity + refrect_intensity > 1)
     {
         std::cerr << "Material Wrong: Enegry Distribution Exceeded !" << std::endl;
