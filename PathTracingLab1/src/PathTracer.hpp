@@ -15,6 +15,7 @@
 #include "ColorSpace.hpp"
 
 const double PI = acos(-1);
+const double eps = 1e-6;
 
 #define dbg(x) std::cout << #x << " := " << x << std::endl
 
@@ -70,14 +71,14 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     double relative_refraction_index = is_into_sphere ? hit_obj.material.refrect_index : 1.0 / hit_obj.material.refrect_index;
 
     // 预处理镜面反射与折射光线的方向
-    Vector3D in_dir = ray.direction;                                        // 光线入射方向
-    double cos_i = abs(Dot(in_dir, normal));                                // 入射角 cos
-    double sin_i = sqrt(1 - cos_i * cos_i);                                 // 入射角 sin
-    double sin_j = sin_i / relative_refraction_index;                       // 折射角 sin
-    double cos_j = sqrt(1 - sin_j * sin_j);                                 // 折射角 cos
-    Vector3D base_dir = (in_dir - Dot(in_dir, normal) * normal).Unit();     // 入射面中表面的切线方向
-    Vector3D refl_dir = (in_dir - 2 * Dot(in_dir, normal) * normal).Unit(); // 反射光线方向
-    Vector3D refr_dir = sin_j * base_dir - cos_j * normal;                  // 折射光线方向
+    Vector3D in_dir = ray.direction;                       // 光线入射方向
+    double cos_i = abs(Dot(in_dir, normal));               // 入射角 cos
+    double sin_i = sqrt(1 - cos_i * cos_i);                // 入射角 sin
+    double sin_j = sin_i / relative_refraction_index;      // 折射角 sin
+    double cos_j = sqrt(1 - sin_j * sin_j);                // 折射角 cos
+    Vector3D base_dir = (in_dir + cos_i * normal).Unit();  // 入射面中表面的切线方向
+    Vector3D refl_dir = (in_dir + 2 * cos_i * normal);     // 反射光线方向
+    Vector3D refr_dir = sin_j * base_dir - cos_j * normal; // 折射光线方向
 
     // 预处理光强信息
     double refrect_index_in = is_into_sphere ? 1.0 : hit_obj.material.refrect_index;                       // 入射介质折射率
@@ -130,19 +131,23 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
         Vector3D diffuse_dir_k = diffuse_proj_k * diffuse_unit_k;             // 漫反射光线在微平面坐标系 k 方向的分量
         Vector3D diffuse_dir = diffuse_dir_i + diffuse_dir_j + diffuse_dir_k; // 漫反射光线方向
         // 生成漫反射光线
-        Ray diffuse_ray(hit_point, diffuse_dir);                               // 漫反射光线
+        Ray diffuse_ray(hit_point, diffuse_dir); // 漫反射光线
+        diffuse_ray.origin += eps * diffuse_ray.direction;
         return PathTracing(diffuse_ray, depth + 1, scene) + material.emission; // 漫反射强度 + 自发光强度
     }
     else if (rand_value - diffuse_intensity < reflect_intensity)
     {
         // 生成镜面反射光线
-        Ray reflection_ray(hit_point, refl_dir);                                  // 镜面反射光线
+        Ray reflection_ray(hit_point, refl_dir); // 镜面反射光线
+        reflection_ray.origin += eps * reflection_ray.direction;
         return PathTracing(reflection_ray, depth + 1, scene) + material.emission; // 镜面反射强度 + 自发光强度
     }
     else if (rand_value - diffuse_intensity - reflect_intensity < refrect_intensity)
     {
         // 生成折射光线
-        Ray refrection_ray(hit_point, refr_dir);                                  // 折射光线
+        Ray refrection_ray(hit_point, refr_dir); // 折射光线
+        refrection_ray.origin += eps * refrection_ray.direction;
+        std::cerr << "refrection" << std::endl;
         return PathTracing(refrection_ray, depth + 1, scene) + material.emission; // 折射光强度 + 自发光强度
     }
     else

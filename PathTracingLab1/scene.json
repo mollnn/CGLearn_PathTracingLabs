@@ -1,8 +1,8 @@
 [
 	{
 		"center": {
-			"x": -3,
-			"y": 0.0,
+			"x": 0,
+			"y": 0,
 			"z": 0
 		},
 		"radius": 0.1,
@@ -10,7 +10,7 @@
 			"diffuse": 0,
 			"specular": 0,
 			"refrection": 0,
-			"emission": 0.5,
+			"emission": 1,
 			"refrect_index": 1.500000
 		}
 	},
@@ -37,11 +37,11 @@
 		},
 		"radius": 1,
 		"material": {
-			"diffuse": 0.1,
-			"specular": 0.8,
+			"diffuse": 0.0,
+			"specular": 0.9,
 			"refrection": 0.00,
 			"emission": 0,
-			"refrect_index": 1.300000
+			"refrect_index": 1.000000
 		}
 	},
 	{

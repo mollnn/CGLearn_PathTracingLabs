@@ -43,14 +43,14 @@ int main(int argc, char *argv[])
     Image image(image_size_x, image_size_y);
 
     // 设置采样器并生成采样
-    Sampler sampler(image_size_x, image_size_y, 64);
+    Sampler sampler(image_size_x, image_size_y, 32);
     sampler.MakeSamples();
 
     int progress_count = 0;
     Timer timer;
 
     // 并行计算所有采样
-#pragma omp parallel for
+// #pragma omp parallel for
     for (int i = 0; i < sampler.samples.size(); i++)
     {
         auto sample = sampler.samples[i]; // 当前正在计算的采样
