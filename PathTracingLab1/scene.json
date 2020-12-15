@@ -20,14 +20,14 @@
 		"center": {
 			"x": 0,
 			"y": 0,
-			"z": 15
+			"z": 20
 		},
-		"radius": 5,
+		"radius": 10,
 		"material": {
 			"diffuse": 0,
 			"specular": 0,
 			"refrection": 0,
-			"emission": 1,
+			"emission": 2,
 			"refrect_index": 1.500000
 		}
 	},
@@ -36,9 +36,9 @@
 		"center": {
 			"x": -10,
 			"y": 0,
-			"z": 15
+			"z": 25
 		},
-		"radius": 3,
+		"radius": 10,
 		"material": {
 			"diffuse": 0,
 			"specular": 0,

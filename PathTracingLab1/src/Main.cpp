@@ -6,7 +6,7 @@
 #include "PathTracer.hpp"
 #include "Random.hpp"
 #include "Ray.hpp"
-#include "Sampler.hpp"
+#include "Sample.hpp"
 #include "Scene.hpp"
 #include "Sphere.hpp"
 #include "Timer.hpp"
@@ -38,39 +38,47 @@ int main(int argc, char *argv[])
     double focus_distance = 1.0;                         // 胶片到相机中心的距离
 
     // 设置输出图像大小
-    int image_size_x = 512;
-    int image_size_y = 512;
+    int image_size_x = 256;
+    int image_size_y = 256;
+    int samples_per_pixel = 256;
     Image image(image_size_x, image_size_y);
-
-    // 设置采样器并生成采样
-    Sampler sampler(image_size_x, image_size_y, 512);
-    sampler.MakeSamples();
 
     int progress_count = 0;
     Timer timer;
 
     // 并行计算所有采样
 #pragma omp parallel for
-    for (int i = 0; i < sampler.samples.size(); i++)
+    for (int image_x = 0; image_x < image_size_x; image_x++)
     {
-        auto sample = sampler.samples[i]; // 当前正在计算的采样
-
-        Vector3D vec = focus_distance * camera.direction + (sample.film_x - 0.5) * film_unit_i + (sample.film_y - 0.5) * film_unit_j; // 光线起点相对于相机原点的偏离方向
-        Point3D origin = camera.origin + vec;                                                                                         // 光线起点
-        Vector3D direction = vec.Unit();                                                                                              // 光线方向
-        Ray ray(origin, direction);                                                                                                   // 光线
-
-        double radiance = PathTracing(ray, 1, scene); // 计算光线跟踪得到辐射强度
-        image.IncPixel(sample.image_x, sample.image_y, radiance * sample.weight);
-
-        // 渲染进度统计与报告
-        ++progress_count;
-
-        if (progress_count % 100000 == 0)
+        for (int image_y = 0; image_y < image_size_y; image_y++)
         {
-            stringstream t_stringstream;
-            t_stringstream << 1.0 * progress_count / sampler.samples.size() * 100 << "\%" << endl;
-            cout << t_stringstream.str();
+            double film_x_min = 1.0 * image_x / image_size_x;
+            double film_x_max = 1.0 * (image_x + 1) / image_size_x;
+            double film_y_min = 1.0 * image_y / image_size_y;
+            double film_y_max = 1.0 * (image_y + 1) / image_size_y;
+            for (int i = 0; i < samples_per_pixel; i++)
+            {
+                double film_x = RandBetween(film_x_min, film_x_max);
+                double film_y = RandBetween(film_y_min, film_y_max);
+                Sample sample(film_x, film_y, image_x, image_y, 1.0 / samples_per_pixel);
+                Vector3D vec = focus_distance * camera.direction + (sample.film_x - 0.5) * film_unit_i + (sample.film_y - 0.5) * film_unit_j; // 光线起点相对于相机原点的偏离方向
+                Point3D origin = camera.origin + vec;                                                                                         // 光线起点
+                Vector3D direction = vec.Unit();                                                                                              // 光线方向
+                Ray ray(origin, direction);                                                                                                   // 光线
+
+                double radiance = PathTracing(ray, 1, scene); // 计算光线跟踪得到辐射强度
+                image.IncPixel(sample.image_x, sample.image_y, radiance * sample.weight);
+
+                // 渲染进度统计与报告
+                ++progress_count;
+
+                if (progress_count % 100000 == 0)
+                {
+                    stringstream t_stringstream;
+                    t_stringstream << 1.0 * progress_count / image_size_x / image_size_y / samples_per_pixel * 100 << "\%" << endl;
+                    cout << t_stringstream.str();
+                }
+            }
         }
     }
 

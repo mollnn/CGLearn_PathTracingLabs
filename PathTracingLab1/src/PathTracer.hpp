@@ -11,7 +11,6 @@
 #include "Random.hpp"
 #include "Timer.hpp"
 #include "Image.hpp"
-#include "Sampler.hpp"
 #include "ColorSpace.hpp"
 
 const double PI = acos(-1);
