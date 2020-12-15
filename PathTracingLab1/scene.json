@@ -1,11 +1,28 @@
 [
 	{
+		"name": "ground",
 		"center": {
 			"x": 0,
 			"y": 0,
-			"z": 0
+			"z": -1000.001
 		},
-		"radius": 0.1,
+		"radius": 1000,
+		"material": {
+			"diffuse": 0.5,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "light",
+		"center": {
+			"x": 0,
+			"y": 0,
+			"z": 15
+		},
+		"radius": 5,
 		"material": {
 			"diffuse": 0,
 			"specular": 0,
@@ -15,14 +32,31 @@
 		}
 	},
 	{
+		"name": "light2",
 		"center": {
-			"x": 1,
-			"y": 0.5,
-			"z": 0
+			"x": -10,
+			"y": 0,
+			"z": 15
 		},
-		"radius": 0.1,
+		"radius": 3,
 		"material": {
 			"diffuse": 0,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 1,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "obj1",
+		"center": {
+			"x": 0,
+			"y": 0,
+			"z": 1
+		},
+		"radius": 1,
+		"material": {
+			"diffuse": 0.9,
 			"specular": 0,
 			"refrection": 0,
 			"emission": 0,
@@ -30,32 +64,50 @@
 		}
 	},
 	{
+		"name": "obj2",
 		"center": {
 			"x": 0,
-			"y": 0,
-			"z": 0
+			"y": -2.5,
+			"z": 1
 		},
 		"radius": 1,
 		"material": {
 			"diffuse": 0.0,
-			"specular": 0.9,
-			"refrection": 0.00,
+			"specular": 0.6,
+			"refrection": 0,
 			"emission": 0,
-			"refrect_index": 1.000000
+			"refrect_index": 1.500000
 		}
 	},
 	{
+		"name": "obj3",
+		"center": {
+			"x": 0,
+			"y": 2.5,
+			"z": 1
+		},
+		"radius": 1,
+		"material": {
+			"diffuse": 0,
+			"specular": 0,
+			"refrection": 0.8,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "environment",
 		"center": {
 			"x": 0,
 			"y": 0,
 			"z": 0
 		},
-		"radius": 5,
+		"radius": 1000,
 		"material": {
-			"diffuse": 0.1,
+			"diffuse": 0.2,
 			"specular": 0,
 			"refrection": 0,
-			"emission": 0.02,
+			"emission": 0.01,
 			"refrect_index": 1.500000
 		}
 	}

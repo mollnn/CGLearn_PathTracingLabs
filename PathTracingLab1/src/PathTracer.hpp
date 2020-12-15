@@ -147,7 +147,6 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
         // 生成折射光线
         Ray refrection_ray(hit_point, refr_dir); // 折射光线
         refrection_ray.origin += eps * refrection_ray.direction;
-        std::cerr << "refrection" << std::endl;
         return PathTracing(refrection_ray, depth + 1, scene) + material.emission; // 折射光强度 + 自发光强度
     }
     else

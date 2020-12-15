@@ -32,25 +32,25 @@ int main(int argc, char *argv[])
     scene.FromJsonObject(jsonobj_scene);
 
     // 设置相机方向（这个地方暂时是硬设置，响应的计算尚未处理好）
-    Camera camera(Point3D(3, 0, 0), Vector3D(-1, 0, 0)); // 相机（起点，方向）
+    Camera camera(Point3D(8, 0, 1), Vector3D(-1, 0, 0)); // 相机（起点，方向）
     Vector3D film_unit_i(0, 1, 0);                       // 胶片的宽度向量
     Vector3D film_unit_j(0, 0, -1);                      // 胶片的高度向量
     double focus_distance = 1.0;                         // 胶片到相机中心的距离
 
     // 设置输出图像大小
-    int image_size_x = 256;
-    int image_size_y = 256;
+    int image_size_x = 512;
+    int image_size_y = 512;
     Image image(image_size_x, image_size_y);
 
     // 设置采样器并生成采样
-    Sampler sampler(image_size_x, image_size_y, 32);
+    Sampler sampler(image_size_x, image_size_y, 512);
     sampler.MakeSamples();
 
     int progress_count = 0;
     Timer timer;
 
     // 并行计算所有采样
-// #pragma omp parallel for
+#pragma omp parallel for
     for (int i = 0; i < sampler.samples.size(); i++)
     {
         auto sample = sampler.samples[i]; // 当前正在计算的采样
