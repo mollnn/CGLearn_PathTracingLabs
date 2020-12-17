@@ -2,7 +2,8 @@
 #define _MATERIAL_HPP
 
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
+#include "Json.hpp"
+
 
 // 默认材质种类
 #define MATERIAL_BITMASK_DIFFUSE 1
@@ -60,6 +61,11 @@ struct Material
         diffuse /= intensity_sum;
         specular /= intensity_sum;
         refrection /= intensity_sum;
+    }
+
+    Material(const cjsonobj::CJsonObject &jsonobj)
+    {
+        FromJsonObject(jsonobj);
     }
 
     cjsonobj::CJsonObject ToJsonObject()

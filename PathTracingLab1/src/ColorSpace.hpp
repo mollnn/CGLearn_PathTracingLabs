@@ -2,7 +2,8 @@
 #define _COLORSPACE_HPP_
 
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
+#include "Json.hpp"
+
 
 typedef double Radiance;
 

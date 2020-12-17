@@ -2,7 +2,7 @@
 #define _VECTOR3D_HPP_
 
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
+#include "Json.hpp"
 
 struct Vector3D
 {
@@ -21,6 +21,11 @@ struct Vector3D
     Vector3D(const Vector3D &src) : x(src.x), y(src.y), z(src.z)
     {
         return;
+    }
+
+    Vector3D(const cjsonobj::CJsonObject &jsonobj)
+    {
+        FromJsonObject(jsonobj);
     }
 
     friend Vector3D operator+(const Vector3D &lhs, const Vector3D &rhs)

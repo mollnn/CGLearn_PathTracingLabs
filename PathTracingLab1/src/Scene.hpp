@@ -2,7 +2,8 @@
 #define _SCENE_HPP_
 
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
+#include "Json.hpp"
+
 #include "Sphere.hpp"
 
 struct Scene
@@ -25,6 +26,11 @@ struct Scene
     Scene(const Sphere &sphere)
     {
         sphere_array.push_back(sphere);
+    }
+
+    Scene(cjsonobj::CJsonObject jsonobj)
+    {
+        FromJsonObject(jsonobj);
     }
 
     int Size() const

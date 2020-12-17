@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
 #include "ColorSpace.hpp"
 #include "Image.hpp"
 #include "Material.hpp"
@@ -12,6 +11,7 @@
 #include "Timer.hpp"
 #include "Vector3D.hpp"
 #include "Camera.hpp"
+#include "Json.hpp"
 
 using namespace std;
 
@@ -22,32 +22,17 @@ int main(int argc, char *argv[])
     cerr << "OpenMP not supported! " << endl;
 #endif
 
-    // 从 JSON 文件中读取场景
-    Scene scene;
-    std::ifstream jsonifs_scene(argv[1]);
-    std::stringstream jsonifs_buffer_scene;
-    jsonifs_buffer_scene << jsonifs_scene.rdbuf();
-    std::string jsonstr_scene(jsonifs_buffer_scene.str());
-    cjsonobj::CJsonObject jsonobj_scene;
-    jsonobj_scene.Parse(jsonstr_scene);
-    scene.FromJsonObject(jsonobj_scene);
-
-    // 135 相机 (底片 36mm * 24mm)
-    double film_size_x = 0.036;
-    double film_size_y = 0.024;
-    double focus_distance = 0.001 * 24; // 相机焦距
-
-    // 设置相机方向（这个地方暂时是硬设置，响应的计算尚未处理好）
-    Camera camera(Point3D(8, 0, 3), Vector3D(-1, 0, -0.2).Unit(), Vector3D(0, 0, 1).Unit()); // 相机（起点，方向，上方向）
-    camera.CorrectByHorizontal(Vector3D(0, 1, 0).Unit());
-    Vector3D film_vec_j = -camera.up * film_size_y;                         // 胶片的高度向量
-    Vector3D film_vec_i = Cross(camera.direction, camera.up) * film_size_x; // 胶片的宽度向量
+    Scene scene(ReadJSON(argv[2]));   // 从 JSON 文件中读取场景
+    Camera camera(ReadJSON(argv[3])); // 从 JSON 文件中读取相机
 
     // 设置输出图像大小
     int image_size_x = 300;
     int image_size_y = 200;
-    int samples_per_pixel = 128;
+    int samples_per_pixel = 32;
     Image image(image_size_x, image_size_y);
+
+    Vector3D film_vec_j = -camera.up * camera.film_size_y;                         // 胶片的高度向量
+    Vector3D film_vec_i = Cross(camera.direction, camera.up) * camera.film_size_x; // 胶片的宽度向量
 
     int progress_count = 0;
     Timer timer;
@@ -67,10 +52,10 @@ int main(int argc, char *argv[])
                 double film_x = RandBetween(film_x_min, film_x_max);
                 double film_y = RandBetween(film_y_min, film_y_max);
                 Sample sample(film_x, film_y, image_x, image_y, 1.0 / samples_per_pixel);
-                Vector3D vec = focus_distance * camera.direction + (sample.film_x - 0.5) * film_vec_i + (sample.film_y - 0.5) * film_vec_j; // 光线起点相对于相机原点的偏离方向
-                Point3D origin = camera.position + vec;                                                                                     // 光线起点
-                Vector3D direction = vec.Unit();                                                                                            // 光线方向
-                Ray ray(origin, direction);                                                                                                 // 光线
+                Vector3D vec = camera.focus_distance * camera.direction + (sample.film_x - 0.5) * film_vec_i + (sample.film_y - 0.5) * film_vec_j; // 光线起点相对于相机原点的偏离方向
+                Point3D origin = camera.position + vec;                                                                                            // 光线起点
+                Vector3D direction = vec.Unit();                                                                                                   // 光线方向
+                Ray ray(origin, direction);                                                                                                        // 光线
 
                 double radiance = PathTracing(ray, 1, scene); // 计算光线跟踪得到辐射强度
                 image.IncPixel(sample.image_x, sample.image_y, radiance * sample.weight);
@@ -90,5 +75,5 @@ int main(int argc, char *argv[])
 
     int flag = 0;
 
-    image.WriteToPPM(argv[2]);
+    image.WriteToPPM(argv[1]);
 }

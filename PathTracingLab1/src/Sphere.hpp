@@ -2,7 +2,8 @@
 #define _SPHERE_HPP_
 
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
+#include "Json.hpp"
+
 #include "Vector3D.hpp"
 #include "Material.hpp"
 #include "Ray.hpp"
@@ -26,6 +27,11 @@ struct Sphere
     Sphere(Vector3D center, double radius, Material material) : center(center), radius(radius), material(material)
     {
         return;
+    }
+
+    Sphere(const cjsonobj::CJsonObject &jsonobj)
+    {
+        FromJsonObject(jsonobj);
     }
 
     // () <-

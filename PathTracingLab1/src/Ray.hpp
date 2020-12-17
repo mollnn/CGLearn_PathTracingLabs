@@ -2,7 +2,8 @@
 #define _RAY_HPP_
 
 #include <bits/stdc++.h>
-#include "json/CJsonObject.hpp"
+#include "Json.hpp"
+
 #include "Vector3D.hpp"
 
 struct Ray
@@ -18,6 +19,11 @@ struct Ray
     Ray(Vector3D origin, Vector3D direction) : origin(origin), direction(direction)
     {
         return;
+    }
+
+    Ray(const cjsonobj::CJsonObject &jsonobj)
+    {
+        FromJsonObject(jsonobj);
     }
 
     cjsonobj::CJsonObject ToJsonObject()
@@ -47,6 +53,5 @@ Ray RayFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
     ans.FromJsonObject(jsonobj);
     return ans;
 }
-
 
 #endif
