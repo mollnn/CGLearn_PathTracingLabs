@@ -20,7 +20,7 @@ clean:
 	rm bin/*.exe lib/*.o lib/json/*.o
 
 run:							bin/PathTracingLab1.exe
-	bin/PathTracingLab1.exe test.ppm scene.json camera.json
+	bin/PathTracingLab1.exe test.ppm scene.json camera.json sensor.json
 
 test:							bin/moduleTest.exe
 	bin/moduleTest.exe
