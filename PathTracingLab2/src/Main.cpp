@@ -7,7 +7,7 @@
 #include "Ray.hpp"
 #include "Sample.hpp"
 #include "Scene.hpp"
-#include "Sphere.hpp"
+#include "Triangle.hpp"
 #include "Timer.hpp"
 #include "Vector3D.hpp"
 #include "Camera.hpp"

@@ -4,11 +4,11 @@
 #include <bits/stdc++.h>
 #include "Json.hpp"
 
-#include "Sphere.hpp"
+#include "Triangle.hpp"
 
 struct Scene
 {
-    std::vector<Sphere> sphere_array;
+    std::vector<Triangle> triangle_array;
 
     Scene()
     {
@@ -17,15 +17,15 @@ struct Scene
 
     Scene(const Scene &scene)
     {
-        for (auto i : scene.sphere_array)
+        for (auto i : scene.triangle_array)
         {
-            sphere_array.push_back(i);
+            triangle_array.push_back(i);
         }
     }
 
-    Scene(const Sphere &sphere)
+    Scene(const Triangle &triangle)
     {
-        sphere_array.push_back(sphere);
+        triangle_array.push_back(triangle);
     }
 
     Scene(cjsonobj::CJsonObject jsonobj)
@@ -35,33 +35,33 @@ struct Scene
 
     int Size() const
     {
-        return sphere_array.size();
+        return triangle_array.size();
     }
 
-    Sphere &operator[](int id) 
+    Triangle &operator[](int id) 
     {
-        return sphere_array[id];
+        return triangle_array[id];
     }
 
-    const Sphere &operator[](int id) const
+    const Triangle &operator[](int id) const
     {
-        return sphere_array[id];
+        return triangle_array[id];
     }
 
-    void Push(const Sphere &sphere)
+    void Push(const Triangle &sphere)
     {
-        sphere_array.push_back(sphere);
+        triangle_array.push_back(sphere);
     }
 
     void Pop()
     {
-        sphere_array.pop_back();
+        triangle_array.pop_back();
     }
 
     cjsonobj::CJsonObject ToJsonObject()
     {
         cjsonobj::CJsonObject jsonobj;
-        for (auto &i : sphere_array)
+        for (auto &i : triangle_array)
         {
             jsonobj.Add(i.ToJsonObject());
         }
@@ -71,12 +71,12 @@ struct Scene
     void FromJsonObject(cjsonobj::CJsonObject &jsonobj)
     {
         int size = jsonobj.GetArraySize();
-        sphere_array.clear();
+        triangle_array.clear();
         for (int i = 0; i < size; i++)
         {
-            cjsonobj::CJsonObject jsonobj_sphere;
-            jsonobj.Get(i, jsonobj_sphere);
-            sphere_array.push_back(SphereFromJsonObject(jsonobj_sphere));
+            cjsonobj::CJsonObject jsonobj_triangle;
+            jsonobj.Get(i, jsonobj_triangle);
+            triangle_array.push_back(TriangleFromJsonObject(jsonobj_triangle));
         }
     }
 
