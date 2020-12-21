@@ -4,3 +4,4 @@ A Simple Monte Carlo Path Tracer
 
 场景颜色支持：RGB
 
+Lab 2 准备提交
