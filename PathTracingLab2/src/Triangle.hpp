@@ -67,6 +67,14 @@ struct Triangle
         Vector3D n = Cross(a, b).Unit();
         return Plane(p[0], n);
     }
+
+    Vector3D GetNormal() const
+    {
+        Vector3D a = p[1] - p[0];
+        Vector3D b = p[2] - p[0];
+        Vector3D n = Cross(a, b).Unit();
+        return n;
+    }
 };
 
 Triangle TriangleFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
@@ -75,7 +83,6 @@ Triangle TriangleFromJsonObject(const cjsonobj::CJsonObject &jsonobj)
     ans.FromJsonObject(jsonobj);
     return ans;
 }
-
 
 double GetIntersectionDistance(const Triangle &triangle, const Ray &ray)
 {
@@ -90,7 +97,7 @@ double GetIntersectionDistance(const Triangle &triangle, const Ray &ray)
         Point3D hit_point = ray.origin + distance * ray.direction;
         Point3D q = hit_point;
         Vector3D n = plane.normal;
-        const Point3D* p = triangle.p;
+        const Point3D *p = triangle.p;
 
         Vector3D p0_p1 = p[1] - p[0];
         Vector3D p1_p2 = p[2] - p[1];
