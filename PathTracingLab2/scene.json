@@ -1,15 +1,49 @@
 [
 	{
-		"name": "ground",
-		"center": {
-			"x": 0,
-			"y": 0,
-			"z": -1000.001
+		"name": "ground_face1",
+		"p0": {
+			"x": -1000,
+			"y": -1000,
+			"z": 0
 		},
-		"radius": 1000,
+		"p1": {
+			"x": -1000,
+			"y": 1000,
+			"z": 0
+		},
+		"p2": {
+			"x": 1000,
+			"y": -1000,
+			"z": 0
+		},
 		"material": {
-			"diffuse": 0.5,
+			"diffuse": 0.1,
 			"specular": 0,
+			"refrection": 0.2,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "ground_face2",
+		"p0": {
+			"x": 1000,
+			"y": 1000,
+			"z": 0
+		},
+		"p1": {
+			"x": -1000,
+			"y": 1000,
+			"z": 0
+		},
+		"p2": {
+			"x": 1000,
+			"y": -1000,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.1,
+			"specular": 0.2,
 			"refrection": 0,
 			"emission": 0,
 			"refrect_index": 1.500000
@@ -17,14 +51,23 @@
 	},
 	{
 		"name": "light",
-		"center": {
-			"x": 0,
-			"y": 0,
-			"z": 20
+		"p0": {
+			"x": -50,
+			"y": -50,
+			"z": 50
 		},
-		"radius": 12,
+		"p1": {
+			"x": -50,
+			"y": 50,
+			"z": 50
+		},
+		"p2": {
+			"x": 50,
+			"y": 0,
+			"z": 50
+		},
 		"material": {
-			"diffuse": 0,
+			"diffuse": 0.0,
 			"specular": 0,
 			"refrection": 0,
 			"emission": 2,
@@ -32,82 +75,302 @@
 		}
 	},
 	{
-		"name": "light2",
-		"center": {
-			"x": -10,
-			"y": 0,
-			"z": 25
+		"name": "cube_ABD",
+		"p0": {
+			"x": 1,
+			"y": -1,
+			"z": 2
 		},
-		"radius": 12,
-		"material": {
-			"diffuse": 0,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 1,
-			"refrect_index": 1.500000
-		}
-	},
-	{
-		"name": "obj1",
-		"center": {
-			"x": 0,
-			"y": 0,
-			"z": 1
-		},
-		"radius": 1,
-		"material": {
-			"diffuse": 0.9,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
-			"refrect_index": 1.500000
-		}
-	},
-	{
-		"name": "obj2",
-		"center": {
-			"x": 0,
-			"y": -2.5,
-			"z": 1
-		},
-		"radius": 1,
-		"material": {
-			"diffuse": 0.0,
-			"specular": 0.6,
-			"refrection": 0,
-			"emission": 0,
-			"refrect_index": 1.500000
-		}
-	},
-	{
-		"name": "obj3",
-		"center": {
-			"x": 0,
-			"y": 2.5,
-			"z": 1
-		},
-		"radius": 1,
-		"material": {
-			"diffuse": 0,
-			"specular": 0,
-			"refrection": 0.8,
-			"emission": 0,
-			"refrect_index": 1.500000
-		}
-	},
-	{
-		"name": "environment",
-		"center": {
-			"x": 0,
-			"y": 0,
+		"p1": {
+			"x": 1,
+			"y": -1,
 			"z": 0
 		},
-		"radius": 1000,
+		"p2": {
+			"x": 1,
+			"y": 1,
+			"z": 2
+		},
 		"material": {
-			"diffuse": 0.2,
+			"diffuse": 0.8,
 			"specular": 0,
 			"refrection": 0,
-			"emission": 0.01,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_CBD",
+		"p0": {
+			"x": 1,
+			"y": 1,
+			"z": 0
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 0
+		},
+		"p2": {
+			"x": 1,
+			"y": 1,
+			"z": 2
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_CDG",
+		"p0": {
+			"x": 1,
+			"y": 1,
+			"z": 0
+		},
+		"p1": {
+			"x": 1,
+			"y": 1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_HDG",
+		"p0": {
+			"x": -1,
+			"y": 1,
+			"z": 2
+		},
+		"p1": {
+			"x": 1,
+			"y": 1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_HEG",
+		"p0": {
+			"x": -1,
+			"y": 1,
+			"z": 2
+		},
+		"p1": {
+			"x": -1,
+			"y": -1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_FEG",
+		"p0": {
+			"x": -1,
+			"y": -1,
+			"z": 0
+		},
+		"p1": {
+			"x": -1,
+			"y": -1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_BAF",
+		"p0": {
+			"x": 1,
+			"y": -1,
+			"z": 0
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": -1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_EAF",
+		"p0": {
+			"x": -1,
+			"y": -1,
+			"z": 2
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": -1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_DAH",
+		"p0": {
+			"x": 1,
+			"y": 1,
+			"z": 2
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 2
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_EAH",
+		"p0": {
+			"x": -1,
+			"y": -1,
+			"z": 2
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 2
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 2
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_CBG",
+		"p0": {
+			"x": 1,
+			"y": 1,
+			"z": 0
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 0
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
+			"refrect_index": 1.500000
+		}
+	},
+	{
+		"name": "cube_FBG",
+		"p0": {
+			"x": -1,
+			"y": -1,
+			"z": 0
+		},
+		"p1": {
+			"x": 1,
+			"y": -1,
+			"z": 0
+		},
+		"p2": {
+			"x": -1,
+			"y": 1,
+			"z": 0
+		},
+		"material": {
+			"diffuse": 0.8,
+			"specular": 0,
+			"refrection": 0,
+			"emission": 0,
 			"refrect_index": 1.500000
 		}
 	}

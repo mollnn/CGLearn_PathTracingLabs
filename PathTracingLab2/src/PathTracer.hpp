@@ -6,7 +6,7 @@
 #include "Vector3D.hpp"
 #include "Material.hpp"
 #include "Ray.hpp"
-#include "Sphere.hpp"
+#include "Triangle.hpp"
 #include "Scene.hpp"
 #include "Random.hpp"
 #include "Timer.hpp"
@@ -19,7 +19,7 @@ const double eps = 1e-6;
 #define dbg(x) std::cout << #x << " := " << x << std::endl
 
 // 求出一条光线与一个特定的物体的交点，返回 <距离，交点>
-std::tuple<double, Point> GetIntersection(const Sphere &sphere, const Ray &ray)
+std::tuple<double, Point> GetIntersection(const Triangle &sphere, const Ray &ray)
 {
     double distance = GetIntersectionDistance(sphere, ray);
     Point intersection_point = ray.origin + distance * ray.direction;
@@ -35,7 +35,7 @@ std::tuple<double, Point, int> GetIntersection(const Scene &scene, const Ray &ra
     std::tuple<double, Point, int> answer = std::make_tuple(1e100, Point(0, 0, 0), -1);
     for (int i = 0; i < scene_size; i++)
     {
-        const Sphere &sphere = scene[i];
+        const Triangle &sphere = scene[i];
         auto [distance, intersection_point] = GetIntersection(sphere, ray);
         // 如果 distance > 0，则表示交点合法，此时考虑更新答案
         if (distance > 0 && distance < std::get<0>(answer))
@@ -63,9 +63,9 @@ Radiance PathTracing(Ray ray, int depth, const Scene &scene)
     }
 
     // 准备工作，计算基本信息
-    const Sphere &hit_obj = scene[hit_id];                               // 命中物体
-    Vector3D normal_outward = (hit_point - hit_obj.center).Unit();       // 外向法线
-    bool is_into_sphere = Dot(ray.direction, normal_outward) < 0;        // 是否在射入球体内部
+    const Triangle &hit_obj = scene[hit_id];                             // 命中物体
+    Vector3D normal_outward = hit_obj.GetNormal();                       // 法线
+    bool is_into_sphere = Dot(ray.direction, normal_outward) < 0;        // 是否在射入内部
     Vector3D normal = is_into_sphere ? normal_outward : -normal_outward; // 实际光学效应的法线
     double relative_refraction_index = is_into_sphere ? hit_obj.material.refrect_index : 1.0 / hit_obj.material.refrect_index;
 
