@@ -14,12 +14,12 @@ struct Plane
     Vector3D normal;
     Material material;
 
-    Plane() : p(Vector3D(0, 0, 0)), normal(Vector3D(1, 0, 0)), material(Material(MATERIAL_STD_DIFFUSE))
+    Plane() : p(Vector3D(0, 0, 0)), normal(Vector3D(1, 0, 0)), material(Material())
     {
         return;
     }
 
-    Plane(Point3D p, Vector3D normal) : p(p), normal(normal), material(Material(MATERIAL_STD_DIFFUSE))
+    Plane(Point3D p, Vector3D normal) : p(p), normal(normal), material(Material())
     {
         return;
     }

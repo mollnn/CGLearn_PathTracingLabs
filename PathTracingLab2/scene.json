@@ -17,10 +17,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.1,
-			"specular": 0,
-			"refrection": 0.2,
-			"emission": 0,
+			"diffuse": {
+				"x": 0.1,
+				"y": 0.1,
+				"z": 0.1
+			},
+			"specular": {
+				"x": 0.1,
+				"y": 0.1,
+				"z": 0.1
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -42,10 +58,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.1,
-			"specular": 0.2,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 0.1,
+				"y": 0.1,
+				"z": 0.1
+			},
+			"specular": {
+				"x": 0.1,
+				"y": 0.1,
+				"z": 0.1
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -67,14 +99,29 @@
 			"z": 50
 		},
 		"material": {
-			"diffuse": 0.0,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 2,
+			"diffuse": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 2,
+				"y": 2,
+				"z": 2
+			},
 			"refrect_index": 1.500000
 		}
-	},
-	{
+	},{
 		"name": "cube_ABD",
 		"p0": {
 			"x": 1,
@@ -92,10 +139,26 @@
 			"z": 2
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -117,10 +180,26 @@
 			"z": 2
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -142,10 +221,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -167,10 +262,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -192,10 +303,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -217,10 +344,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -242,10 +385,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -267,10 +426,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -292,10 +467,26 @@
 			"z": 2
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -317,10 +508,26 @@
 			"z": 2
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -342,10 +549,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	},
@@ -367,10 +590,26 @@
 			"z": 0
 		},
 		"material": {
-			"diffuse": 0.8,
-			"specular": 0,
-			"refrection": 0,
-			"emission": 0,
+			"diffuse": {
+				"x": 1.0,
+				"y": 0.5,
+				"z": 0.5
+			},
+			"specular": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"refrection": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"emission": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
 			"refrect_index": 1.500000
 		}
 	}
