@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
                 Vector3D direction = vec.Unit();                                                                                                   // 光线方向
                 Ray ray(origin, direction);                                                                                                        // 光线
 
-                double radiance = PathTracing(ray, 1, scene); // 计算光线跟踪得到辐射强度
+                Radiance3 radiance = PathTracing(ray, 1, scene); // 计算光线跟踪得到辐射强度
                 image.IncPixel(sample.image_x, sample.image_y, radiance * sample.weight);
 
                 // 渲染进度统计与报告

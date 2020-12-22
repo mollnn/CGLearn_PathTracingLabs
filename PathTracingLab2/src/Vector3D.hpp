@@ -236,10 +236,16 @@ struct Vector3D
     {
         return !(*this == rhs);
     }
+
+    double Average() const
+    {
+        return (x + y + z) / 3;
+    }
 };
 
 typedef Vector3D Vertex3D;
 typedef Vector3D Point3D;
 typedef Point3D Point;
+typedef Vector3D Radiance3;
 
 #endif

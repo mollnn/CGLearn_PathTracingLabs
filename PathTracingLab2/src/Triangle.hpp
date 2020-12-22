@@ -15,12 +15,12 @@ struct Triangle
     Point3D p[3];
     Material material;
 
-    Triangle() : p({Vector3D(0, 0, 0), Vector3D(0, 0, 0), Vector3D(0, 0, 0)}), material(Material(MATERIAL_STD_DIFFUSE))
+    Triangle() : p({Vector3D(0, 0, 0), Vector3D(0, 0, 0), Vector3D(0, 0, 0)}), material(Material())
     {
         return;
     }
 
-    Triangle(Point3D p0, Point3D p1, Point3D p2) : p({p0, p1, p2}), material(Material(MATERIAL_STD_DIFFUSE))
+    Triangle(Point3D p0, Point3D p1, Point3D p2) : p({p0, p1, p2}), material(Material())
     {
         return;
     }
